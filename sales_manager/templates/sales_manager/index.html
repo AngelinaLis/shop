@@ -1,32 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+{% extends 'sales_manager/main.html' %}
+
+{% block title %} Main page {% endblock %}
+{% block content %}
 <div class="container">
-{{ user.username }}
-{% if user.is_authenticated %}
-    <a href="{% url 'logout' %}">logout</a>
-{% else %}
-    <a href="{% url 'login' %}">login</a>
-{% endif %}
-{% for book in books %}
-    <h1><a href ="{% url 'book-detail' book_id=book.id%}">{{ book.title }}</a></h1>
-    <p>{{ book.text }}</p>
-    <i>{{ book.author.username }}</i><br>
-    {{ book.date_publish|date:"d-m-Y" }}<br>
-    <i><a href="{% url 'book-like' book_id=book.id%}">likes {{ book.count_likes }}</a></i><br><br>
-    {% for comment in book.comments.all %}
-      <p>  {{ comment.text }} </p>
-      <p> Date {{ comment.date|date:"d-m-Y-H:i:s" }} </p>
-      <p> Author {{ comment.user.username }} </p>
-      <p> Likes {{ comment.count_likes }} </p>
+    {% for book in books %}
+        {% include 'sales_manager/book_view.html' with book=book with_comment=False %}
     {% endfor %}
-    <br>
-{% endfor %}
-    </div>
-</body>
-</html>
+</div>
+{% endblock %}
