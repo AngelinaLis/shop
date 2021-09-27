@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container">
     {% for book in books %}
-        {% include 'sales_manager/book_view.html' with book=book with_comment=False %}
+        {% include 'sales_manager/book_view.html' with book=book with_comment=False redirect_url='main-page' %}
     {% endfor %}
 </div>
 {% endblock %}

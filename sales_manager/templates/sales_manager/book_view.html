@@ -1,15 +1,14 @@
-<h1><a href ="{% url 'book-detail' book_id=book.id%}">
-    {{ book.title }}</a></h1>
+<a href ="{% url 'book-detail' book_id=book.id%}">
+    {{ book.title }}</a>
 <p>{{ book.text }}</p>
-<i>{{ book.author.username }}</i><br>
+Author: <i>{{ book.author.username }}</i>
 {{ book.date_publish|date:"d-m-Y" }}<br>
-<i><a href="{% url 'book-like' book_id=book.id%}">likes {{ book.count_likes }}</a></i><br><br>
+<a href="{% url 'book-like' book_id=book.id redirect_url=redirect_url %}">Likes {{ book.count_likes }}</a><br><br>
+<hr>
 {% if with_comment %}
     {% for comment in book.comments.all %}
+        <p> Author: {{ comment.user.username }} </p>
         <p>  {{ comment.text }} </p>
-        <p> Date {{ comment.date|date:"d-m-Y-H:i:s" }} </p>
-        <p> Author {{ comment.user.username }} </p>
-        <p> Likes {{ comment.count_likes }} </p>
+        <p> Date {{ comment.date|date:"d-m-Y-H:i:s" }}  Likes {{ comment.count_likes }}</p><hr>
     {% endfor %}
 {% endif %}
-<br>
